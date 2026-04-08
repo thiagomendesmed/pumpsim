@@ -1,0 +1,102 @@
+{
+  "doseRange.low": "LOW DOSE",
+  "doseRange.moderate": "MODERATE DOSE",
+  "doseRange.high": "HIGH DOSE",
+  "doseRange.veryHigh": "VERY HIGH DOSE",
+
+  "norepinefrina.clinicalNotes.0": "Catecholamine with potent vasoconstrictor action (alpha-1) and positive inotropic effect (beta-1).",
+  "norepinefrina.clinicalNotes.1": "First-choice drug in septic shock (Surviving Sepsis 2021).",
+  "norepinefrina.clinicalNotes.2": "Usual dose: 0.1 to 0.5 mcg/kg/min.",
+  "norepinefrina.clinicalNotes.3": "Doses above 0.5 mcg/kg/min indicate refractory shock — consider adding vasopressin.",
+  "norepinefrina.clinicalNotes.4": "Preferably administer via central venous access.",
+
+  "vasopressina.clinicalNotes.0": "Antidiuretic hormone with vasoconstrictor action (V1 receptors).",
+  "vasopressina.clinicalNotes.1": "Second-line in septic shock, combined with norepinephrine (Surviving Sepsis 2021).",
+  "vasopressina.clinicalNotes.2": "Usual fixed dose: 0.03 to 0.04 U/min.",
+  "vasopressina.clinicalNotes.3": "Do not titrate by weight — fixed dose.",
+  "vasopressina.clinicalNotes.4": "Doses above 0.04 U/min associated with mesenteric and digital ischemia.",
+
+  "dobutamina.clinicalNotes.0": "Synthetic catecholamine with predominant positive inotropic action (beta-1).",
+  "dobutamina.clinicalNotes.1": "Drug of choice in cardiogenic shock and acute heart failure.",
+  "dobutamina.clinicalNotes.2": "Usual dose: 2.5 to 20 mcg/kg/min.",
+  "dobutamina.clinicalNotes.3": "Positive chronotropic effect — monitor for tachycardia.",
+  "dobutamina.clinicalNotes.4": "May cause hypotension via vasodilation (beta-2) at low doses.",
+
+  "dopamina.clinicalNotes.0": "Endogenous catecholamine with dose-dependent effects: dopaminergic, beta, and alpha.",
+  "dopamina.clinicalNotes.1": "Dose < 3 mcg/kg/min: dopaminergic effect (renal — controversial).",
+  "dopamina.clinicalNotes.2": "Dose 3-10 mcg/kg/min: beta-1 effect (inotropic and chronotropic).",
+  "dopamina.clinicalNotes.3": "Dose > 10 mcg/kg/min: alpha-1 effect (vasoconstrictor).",
+  "dopamina.clinicalNotes.4": "Higher incidence of arrhythmias compared to norepinephrine (SOAP II Trial).",
+
+  "epinefrina.clinicalNotes.0": "Endogenous catecholamine with alpha and beta-adrenergic action.",
+  "epinefrina.clinicalNotes.1": "Indicated in anaphylactic shock and as second-line in septic shock.",
+  "epinefrina.clinicalNotes.2": "Usual infusion dose: 0.01 to 0.3 mcg/kg/min.",
+  "epinefrina.clinicalNotes.3": "Potent chronotropic effect — risk of tachyarrhythmias.",
+  "epinefrina.clinicalNotes.4": "Can be used as alternative to dobutamine in cardiogenic shock.",
+
+  "fentanila.clinicalNotes.0": "Potent synthetic opioid with rapid onset of action.",
+  "fentanila.clinicalNotes.1": "Analgesia and sedation in mechanically ventilated patients (PADIS 2018).",
+  "fentanila.clinicalNotes.2": "Usual continuous infusion dose: 0.5 to 3 mcg/kg/h.",
+  "fentanila.clinicalNotes.3": "Risk of chest wall rigidity with rapid bolus.",
+  "fentanila.clinicalNotes.4": "Monitor for respiratory depression and hypotension.",
+
+  "midazolam.clinicalNotes.0": "Short-acting benzodiazepine with sedative, anxiolytic, and amnestic properties.",
+  "midazolam.clinicalNotes.1": "ICU sedation for mechanically ventilated patients.",
+  "midazolam.clinicalNotes.2": "Usual dose: 0.02 to 0.1 mg/kg/h.",
+  "midazolam.clinicalNotes.3": "Accumulation with prolonged infusions — prefer propofol or dexmedetomidine (PADIS 2018).",
+  "midazolam.clinicalNotes.4": "Monitor sedation level (RASS).",
+
+  "propofol.clinicalNotes.0": "Ultra-short-acting hypnotic with rapid recovery.",
+  "propofol.clinicalNotes.1": "ICU sedation — preferred over benzodiazepines (PADIS 2018).",
+  "propofol.clinicalNotes.2": "Usual dose: 1 to 4 mg/kg/h.",
+  "propofol.clinicalNotes.3": "Watch for propofol infusion syndrome (PRIS) at doses > 5 mg/kg/h for > 48h.",
+  "propofol.clinicalNotes.4": "Contains lipids — consider caloric intake. Change syringe every 12h.",
+
+  "cetamina.clinicalNotes.0": "Dissociative anesthetic with analgesic and bronchodilator properties.",
+  "cetamina.clinicalNotes.1": "Useful as adjunct for ICU sedation and analgesia.",
+  "cetamina.clinicalNotes.2": "Usual infusion dose: 0.1 to 1 mg/kg/h.",
+  "cetamina.clinicalNotes.3": "Opioid-sparing effect — reduces fentanyl requirements.",
+  "cetamina.clinicalNotes.4": "May cause sialorrhea, hallucinations, and ICP elevation at high doses.",
+
+  "dexmedetomidina.clinicalNotes.0": "Central alpha-2 agonist with sedative and analgesic properties.",
+  "dexmedetomidina.clinicalNotes.1": "Cooperative sedation — patient arousable to stimulation (PADIS 2018).",
+  "dexmedetomidina.clinicalNotes.2": "Usual dose: 0.2 to 0.7 mcg/kg/h (max 1.4 mcg/kg/h).",
+  "dexmedetomidina.clinicalNotes.3": "Lower risk of delirium compared to benzodiazepines.",
+  "dexmedetomidina.clinicalNotes.4": "May cause bradycardia and hypotension. Do NOT dilute in D5W.",
+
+  "morfina.clinicalNotes.0": "Natural opioid with potent analgesic action.",
+  "morfina.clinicalNotes.1": "Usual continuous infusion dose: 1 to 5 mg/h.",
+  "morfina.clinicalNotes.2": "Active metabolite (M6G) accumulates in renal failure.",
+  "morfina.clinicalNotes.3": "May cause histamine release — avoid in bronchospasm.",
+  "morfina.clinicalNotes.4": "Monitor sedation, respiratory depression, and bowel motility.",
+
+  "rocuronio.clinicalNotes.0": "Aminosteroid neuromuscular blocking agent with intermediate duration.",
+  "rocuronio.clinicalNotes.1": "Indicated for neuromuscular paralysis in mechanically ventilated patients.",
+  "rocuronio.clinicalNotes.2": "Usual infusion dose: 5 to 12 mcg/kg/min.",
+  "rocuronio.clinicalNotes.3": "ALWAYS ensure adequate sedation and analgesia — paralyzed patients feel pain.",
+  "rocuronio.clinicalNotes.4": "Monitor with TOF (Train of Four) every 4-6h. Target: TOF 1-2/4.",
+
+  "atracurio.clinicalNotes.0": "Benzylisoquinolinium neuromuscular blocking agent with intermediate duration.",
+  "atracurio.clinicalNotes.1": "Hofmann elimination — safe in renal and hepatic failure.",
+  "atracurio.clinicalNotes.2": "Usual infusion dose: 4 to 12 mcg/kg/min.",
+  "atracurio.clinicalNotes.3": "ALWAYS ensure adequate sedation and analgesia.",
+  "atracurio.clinicalNotes.4": "May cause histamine release — caution in asthmatic patients.",
+
+  "cisatracurio.clinicalNotes.0": "Cis-cis isomer of atracurium, 3x more potent.",
+  "cisatracurio.clinicalNotes.1": "Hofmann elimination — ideal for hepatic/renal failure.",
+  "cisatracurio.clinicalNotes.2": "Usual infusion dose: 1 to 3 mcg/kg/min.",
+  "cisatracurio.clinicalNotes.3": "Less histamine release than atracurium.",
+  "cisatracurio.clinicalNotes.4": "Monitor with TOF. Drug of choice for prolonged NMB in ICU (ACURASYS Trial).",
+
+  "nitroglicerina.clinicalNotes.0": "Predominantly venous vasodilator (low doses) and arterial (high doses).",
+  "nitroglicerina.clinicalNotes.1": "Indicated in acute coronary syndrome and hypertensive emergency.",
+  "nitroglicerina.clinicalNotes.2": "Usual dose: 5 to 200 mcg/min.",
+  "nitroglicerina.clinicalNotes.3": "Tachyphylaxis after 24-48h of continuous use.",
+  "nitroglicerina.clinicalNotes.4": "Use special tubing (non-PVC adsorbing) at high concentrations.",
+
+  "nitroprussiato.clinicalNotes.0": "Direct arterial and venous vasodilator (nitric oxide).",
+  "nitroprussiato.clinicalNotes.1": "Drug of choice in hypertensive emergency with encephalopathy.",
+  "nitroprussiato.clinicalNotes.2": "Usual dose: 0.3 to 5 mcg/kg/min (max 10 mcg/kg/min).",
+  "nitroprussiato.clinicalNotes.3": "Risk of cyanide toxicity with prolonged use (> 48h) or doses > 2 mcg/kg/min.",
+  "nitroprussiato.clinicalNotes.4": "PROTECT FROM LIGHT — use light-protective tubing."
+}

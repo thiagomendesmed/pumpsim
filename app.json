@@ -1,0 +1,33 @@
+{
+  "expo": {
+    "name": "PumpSim",
+    "slug": "pumpsim",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "dark",
+    "scheme": "bombasim",
+    "newArchEnabled": true,
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#0f0f1e"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.bombasim.app",
+      "buildNumber": "1",
+      "usesAppleSignIn": true,
+      "infoPlist": {
+        "NSAppTransportSecurity": {
+          "NSAllowsArbitraryLoads": false
+        }
+      }
+    },
+    "plugins": [
+      "expo-router",
+      "expo-font",
+      "expo-apple-authentication"
+    ]
+  }
+}
