@@ -27,8 +27,7 @@
     "plugins": [
       "expo-router",
       "expo-font",
-      "expo-apple-authentication",
-      "react-native-purchases"
+      "expo-apple-authentication"
     ]
   }
 }
