@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PumpSim — Politica de Privacidade</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0f0f1e; color: #e0e0e0; line-height: 1.7; padding: 40px 20px; }
+    .container { max-width: 720px; margin: 0 auto; }
+    h1 { color: #7dd3fc; font-size: 28px; margin-bottom: 8px; }
+    h2 { color: #7dd3fc; font-size: 20px; margin-top: 32px; margin-bottom: 12px; }
+    h3 { color: #93c5fd; font-size: 16px; margin-top: 20px; margin-bottom: 8px; }
+    p, li { font-size: 15px; margin-bottom: 12px; }
+    ul { padding-left: 24px; margin-bottom: 16px; }
+    a { color: #7dd3fc; }
+    .updated { color: #888; font-size: 13px; margin-bottom: 32px; }
+    .divider { border: none; border-top: 1px solid #222; margin: 32px 0; }
+    .lang-switch { display: flex; gap: 12px; margin-bottom: 24px; }
+    .lang-switch button { background: #1a1a2e; color: #7dd3fc; border: 1px solid #333; border-radius: 6px; padding: 6px 16px; cursor: pointer; font-size: 13px; }
+    .lang-switch button.active { background: #7dd3fc; color: #0f0f1e; border-color: #7dd3fc; }
+    .section { display: none; }
+    .section.active { display: block; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="lang-switch">
+      <button class="active" onclick="switchLang('pt')">Portugues</button>
+      <button onclick="switchLang('en')">English</button>
+      <button onclick="switchLang('es')">Espanol</button>
+    </div>
+
+    <!-- PORTUGUES -->
+    <div id="pt" class="section active">
+      <h1>Politica de Privacidade</h1>
+      <p class="updated">Ultima atualizacao: 7 de abril de 2026</p>
+
+      <p>O <strong>PumpSim</strong> ("nos", "nosso" ou "aplicativo") e um simulador educacional de bombas de infusao para profissionais de saude. Esta politica descreve como coletamos, usamos e protegemos suas informacoes.</p>
+
+      <h2>1. Informacoes que Coletamos</h2>
+
+      <h3>1.1 Dados de Conta</h3>
+      <p>Ao fazer login com Apple Sign-In, coletamos:</p>
+      <ul>
+        <li>Endereco de e-mail (pode ser oculto via Apple Private Relay)</li>
+        <li>Nome (opcional, fornecido pelo usuario)</li>
+        <li>Identificador de autenticacao (token)</li>
+      </ul>
+
+      <h3>1.2 Dados de Uso do Aplicativo</h3>
+      <ul>
+        <li>Configuracoes de simulacao (drogas, diluicoes, vazoes) — armazenados para funcionalidade do app</li>
+        <li>Dados de pacientes simulados (numero do leito, nome) — criados pelo usuario para fins educacionais</li>
+        <li>Preferencias de hospital personalizado</li>
+      </ul>
+
+      <h3>1.3 Dados de Assinatura</h3>
+      <p>Processamos pagamentos via Apple App Store e RevenueCat. Nos <strong>nao</strong> armazenamos dados de cartao de credito. RevenueCat recebe:</p>
+      <ul>
+        <li>Status da assinatura (free/premium)</li>
+        <li>Identificador anonimo de compra</li>
+        <li>Historico de transacoes da App Store</li>
+      </ul>
+
+      <h2>2. Como Usamos suas Informacoes</h2>
+      <ul>
+        <li>Fornecer e manter o servico do aplicativo</li>
+        <li>Gerenciar sua conta e assinatura</li>
+        <li>Sincronizar dados entre dispositivos (usuarios premium)</li>
+        <li>Melhorar a experiencia do usuario</li>
+      </ul>
+      <p>Nos <strong>nao</strong> vendemos, alugamos ou compartilhamos suas informacoes pessoais com terceiros para fins de marketing.</p>
+
+      <h2>3. Armazenamento e Seguranca</h2>
+      <p>Seus dados sao armazenados de forma segura via <strong>Convex</strong> (nosso provedor de banco de dados em nuvem) com criptografia em transito e em repouso. Tokens de autenticacao sao armazenados localmente no dispositivo de forma segura.</p>
+
+      <h2>4. Servicos de Terceiros</h2>
+      <ul>
+        <li><strong>Apple Sign-In</strong> — autenticacao (<a href="https://www.apple.com/legal/privacy/">Politica da Apple</a>)</li>
+        <li><strong>RevenueCat</strong> — gerenciamento de assinaturas (<a href="https://www.revenuecat.com/privacy">Politica do RevenueCat</a>)</li>
+        <li><strong>Convex</strong> — banco de dados em nuvem (<a href="https://www.convex.dev/legal/privacy">Politica do Convex</a>)</li>
+      </ul>
+
+      <h2>5. Retencao de Dados</h2>
+      <p>Mantemos seus dados enquanto sua conta estiver ativa. Voce pode solicitar a exclusao de seus dados a qualquer momento entrando em contato conosco.</p>
+
+      <h2>6. Direitos do Usuario</h2>
+      <p>Voce tem direito a:</p>
+      <ul>
+        <li>Acessar seus dados pessoais</li>
+        <li>Solicitar correcao de dados incorretos</li>
+        <li>Solicitar exclusao de seus dados</li>
+        <li>Revogar consentimento a qualquer momento</li>
+      </ul>
+
+      <h2>7. Uso por Menores</h2>
+      <p>O PumpSim e destinado a profissionais de saude e estudantes de medicina. Nao coletamos intencionalmente dados de menores de 17 anos.</p>
+
+      <h2>8. Dados de Saude</h2>
+      <p>O PumpSim e um <strong>simulador educacional</strong>. Dados de pacientes inseridos no app sao fictícios e para fins de treinamento. O aplicativo <strong>nao</strong> coleta, armazena ou transmite dados reais de pacientes ou informacoes de saude protegidas (PHI).</p>
+
+      <h2>9. Alteracoes nesta Politica</h2>
+      <p>Podemos atualizar esta politica periodicamente. Notificaremos sobre mudancas significativas atraves do aplicativo.</p>
+
+      <h2>10. Contato</h2>
+      <p>Para duvidas sobre privacidade ou solicitacoes de dados:</p>
+      <p><strong>E-mail:</strong> <a href="mailto:thiagomendesmed@gmail.com">thiagomendesmed@gmail.com</a></p>
+
+      <hr class="divider">
+      <p style="color: #666; font-size: 12px;">PumpSim — Simulador Educacional de Bombas de Infusao<br>Este aplicativo nao substitui equipamentos medicos reais.</p>
+    </div>
+
+    <!-- ENGLISH -->
+    <div id="en" class="section">
+      <h1>Privacy Policy</h1>
+      <p class="updated">Last updated: April 7, 2026</p>
+
+      <p><strong>PumpSim</strong> ("we", "our", or "app") is an educational infusion pump simulator for healthcare professionals. This policy describes how we collect, use, and protect your information.</p>
+
+      <h2>1. Information We Collect</h2>
+
+      <h3>1.1 Account Data</h3>
+      <p>When you sign in with Apple Sign-In, we collect:</p>
+      <ul>
+        <li>Email address (can be hidden via Apple Private Relay)</li>
+        <li>Name (optional, provided by user)</li>
+        <li>Authentication identifier (token)</li>
+      </ul>
+
+      <h3>1.2 App Usage Data</h3>
+      <ul>
+        <li>Simulation settings (drugs, dilutions, flow rates) — stored for app functionality</li>
+        <li>Simulated patient data (bed number, name) — created by user for educational purposes</li>
+        <li>Custom hospital preferences</li>
+      </ul>
+
+      <h3>1.3 Subscription Data</h3>
+      <p>We process payments through the Apple App Store and RevenueCat. We do <strong>not</strong> store credit card data. RevenueCat receives:</p>
+      <ul>
+        <li>Subscription status (free/premium)</li>
+        <li>Anonymous purchase identifier</li>
+        <li>App Store transaction history</li>
+      </ul>
+
+      <h2>2. How We Use Your Information</h2>
+      <ul>
+        <li>Provide and maintain the app service</li>
+        <li>Manage your account and subscription</li>
+        <li>Sync data across devices (premium users)</li>
+        <li>Improve user experience</li>
+      </ul>
+      <p>We do <strong>not</strong> sell, rent, or share your personal information with third parties for marketing purposes.</p>
+
+      <h2>3. Storage and Security</h2>
+      <p>Your data is securely stored via <strong>Convex</strong> (our cloud database provider) with encryption in transit and at rest. Authentication tokens are stored securely on your device.</p>
+
+      <h2>4. Third-Party Services</h2>
+      <ul>
+        <li><strong>Apple Sign-In</strong> — authentication (<a href="https://www.apple.com/legal/privacy/">Apple Privacy Policy</a>)</li>
+        <li><strong>RevenueCat</strong> — subscription management (<a href="https://www.revenuecat.com/privacy">RevenueCat Privacy Policy</a>)</li>
+        <li><strong>Convex</strong> — cloud database (<a href="https://www.convex.dev/legal/privacy">Convex Privacy Policy</a>)</li>
+      </ul>
+
+      <h2>5. Data Retention</h2>
+      <p>We retain your data as long as your account is active. You may request deletion of your data at any time by contacting us.</p>
+
+      <h2>6. User Rights</h2>
+      <p>You have the right to:</p>
+      <ul>
+        <li>Access your personal data</li>
+        <li>Request correction of inaccurate data</li>
+        <li>Request deletion of your data</li>
+        <li>Revoke consent at any time</li>
+      </ul>
+
+      <h2>7. Children's Use</h2>
+      <p>PumpSim is intended for healthcare professionals and medical students. We do not knowingly collect data from individuals under 17 years of age.</p>
+
+      <h2>8. Health Data</h2>
+      <p>PumpSim is an <strong>educational simulator</strong>. Patient data entered in the app is fictional and for training purposes. The app does <strong>not</strong> collect, store, or transmit real patient data or protected health information (PHI).</p>
+
+      <h2>9. Changes to This Policy</h2>
+      <p>We may update this policy periodically. We will notify you of significant changes through the app.</p>
+
+      <h2>10. Contact</h2>
+      <p>For privacy questions or data requests:</p>
+      <p><strong>Email:</strong> <a href="mailto:thiagomendesmed@gmail.com">thiagomendesmed@gmail.com</a></p>
+
+      <hr class="divider">
+      <p style="color: #666; font-size: 12px;">PumpSim — Educational Infusion Pump Simulator<br>This app does not replace real medical equipment.</p>
+    </div>
+
+    <!-- ESPANOL -->
+    <div id="es" class="section">
+      <h1>Politica de Privacidad</h1>
+      <p class="updated">Ultima actualizacion: 7 de abril de 2026</p>
+
+      <p><strong>PumpSim</strong> ("nosotros", "nuestro" o "aplicacion") es un simulador educativo de bombas de infusion para profesionales de la salud. Esta politica describe como recopilamos, usamos y protegemos su informacion.</p>
+
+      <h2>1. Informacion que Recopilamos</h2>
+
+      <h3>1.1 Datos de Cuenta</h3>
+      <p>Al iniciar sesion con Apple Sign-In, recopilamos:</p>
+      <ul>
+        <li>Direccion de correo electronico (puede ocultarse via Apple Private Relay)</li>
+        <li>Nombre (opcional, proporcionado por el usuario)</li>
+        <li>Identificador de autenticacion (token)</li>
+      </ul>
+
+      <h3>1.2 Datos de Uso de la Aplicacion</h3>
+      <ul>
+        <li>Configuraciones de simulacion (farmacos, diluciones, flujos) — almacenados para funcionalidad de la app</li>
+        <li>Datos de pacientes simulados (numero de cama, nombre) — creados por el usuario con fines educativos</li>
+        <li>Preferencias de hospital personalizado</li>
+      </ul>
+
+      <h3>1.3 Datos de Suscripcion</h3>
+      <p>Procesamos pagos a traves de Apple App Store y RevenueCat. <strong>No</strong> almacenamos datos de tarjeta de credito. RevenueCat recibe:</p>
+      <ul>
+        <li>Estado de suscripcion (free/premium)</li>
+        <li>Identificador anonimo de compra</li>
+        <li>Historial de transacciones de la App Store</li>
+      </ul>
+
+      <h2>2. Como Usamos su Informacion</h2>
+      <ul>
+        <li>Proporcionar y mantener el servicio de la aplicacion</li>
+        <li>Gestionar su cuenta y suscripcion</li>
+        <li>Sincronizar datos entre dispositivos (usuarios premium)</li>
+        <li>Mejorar la experiencia del usuario</li>
+      </ul>
+      <p><strong>No</strong> vendemos, alquilamos ni compartimos su informacion personal con terceros con fines de marketing.</p>
+
+      <h2>3. Almacenamiento y Seguridad</h2>
+      <p>Sus datos se almacenan de forma segura via <strong>Convex</strong> (nuestro proveedor de base de datos en la nube) con cifrado en transito y en reposo. Los tokens de autenticacion se almacenan de forma segura en su dispositivo.</p>
+
+      <h2>4. Servicios de Terceros</h2>
+      <ul>
+        <li><strong>Apple Sign-In</strong> — autenticacion (<a href="https://www.apple.com/legal/privacy/">Politica de Apple</a>)</li>
+        <li><strong>RevenueCat</strong> — gestion de suscripciones (<a href="https://www.revenuecat.com/privacy">Politica de RevenueCat</a>)</li>
+        <li><strong>Convex</strong> — base de datos en la nube (<a href="https://www.convex.dev/legal/privacy">Politica de Convex</a>)</li>
+      </ul>
+
+      <h2>5. Retencion de Datos</h2>
+      <p>Conservamos sus datos mientras su cuenta este activa. Puede solicitar la eliminacion de sus datos en cualquier momento contactandonos.</p>
+
+      <h2>6. Derechos del Usuario</h2>
+      <p>Usted tiene derecho a:</p>
+      <ul>
+        <li>Acceder a sus datos personales</li>
+        <li>Solicitar la correccion de datos incorrectos</li>
+        <li>Solicitar la eliminacion de sus datos</li>
+        <li>Revocar el consentimiento en cualquier momento</li>
+      </ul>
+
+      <h2>7. Uso por Menores</h2>
+      <p>PumpSim esta destinado a profesionales de la salud y estudiantes de medicina. No recopilamos intencionalmente datos de menores de 17 anos.</p>
+
+      <h2>8. Datos de Salud</h2>
+      <p>PumpSim es un <strong>simulador educativo</strong>. Los datos de pacientes ingresados en la app son ficticios y con fines de entrenamiento. La aplicacion <strong>no</strong> recopila, almacena ni transmite datos reales de pacientes ni informacion de salud protegida (PHI).</p>
+
+      <h2>9. Cambios en esta Politica</h2>
+      <p>Podemos actualizar esta politica periodicamente. Le notificaremos sobre cambios significativos a traves de la aplicacion.</p>
+
+      <h2>10. Contacto</h2>
+      <p>Para consultas sobre privacidad o solicitudes de datos:</p>
+      <p><strong>Email:</strong> <a href="mailto:thiagomendesmed@gmail.com">thiagomendesmed@gmail.com</a></p>
+
+      <hr class="divider">
+      <p style="color: #666; font-size: 12px;">PumpSim — Simulador Educativo de Bombas de Infusion<br>Esta aplicacion no sustituye equipos medicos reales.</p>
+    </div>
+  </div>
+
+  <script>
+    function switchLang(lang) {
+      document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+      document.querySelectorAll('.lang-switch button').forEach(b => b.classList.remove('active'));
+      document.getElementById(lang).classList.add('active');
+      event.target.classList.add('active');
+    }
+  </script>
+</body>
+</html>
