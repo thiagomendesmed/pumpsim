@@ -1,5 +1,6 @@
 import "react-native-get-random-values";
 import { useEffect, useState } from "react";
+import { View, Text } from "react-native";
 import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
@@ -16,6 +17,7 @@ import { initI18n } from "@/lib/i18n";
 import { initPurchases } from "@/lib/purchases";
 import { useSubscriptionStore } from "@/store/useSubscriptionStore";
 import { ThemeProvider, useTheme } from "@/hooks/useThemeContext";
+import { ErrorBoundary } from "@/components/ui/ErrorBoundary";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -38,10 +40,7 @@ function SubscriptionManager() {
   const { checkStatus, startListening, loadCachedStatus } = useSubscriptionStore();
 
   useEffect(() => {
-    // Load cached status first for instant UI, then check real status
     loadCachedStatus().then(() => checkStatus());
-
-    // Listen for real-time subscription changes
     startListening();
   }, []);
 
@@ -56,14 +55,18 @@ export default function RootLayout() {
     Silkscreen_700Bold,
   });
   const [i18nReady, setI18nReady] = useState(false);
+  const [initError, setInitError] = useState<string | null>(null);
 
   useEffect(() => {
-    initI18n().then(() => setI18nReady(true));
+    initI18n()
+      .then(() => setI18nReady(true))
+      .catch((e) => setInitError(`i18n: ${e.message}`));
   }, []);
 
   useEffect(() => {
-    // Initialize RevenueCat as early as possible
-    initPurchases();
+    initPurchases().catch((e) =>
+      console.warn("RevenueCat init error:", e)
+    );
   }, []);
 
   useEffect(() => {
@@ -72,16 +75,32 @@ export default function RootLayout() {
     }
   }, [fontsLoaded, i18nReady]);
 
+  // Show init error on screen for debugging
+  if (initError) {
+    return (
+      <View style={{ flex: 1, backgroundColor: "#0f0f1e", justifyContent: "center", padding: 32 }}>
+        <Text style={{ color: "#ef4444", fontSize: 20, marginBottom: 12 }}>Init Error</Text>
+        <Text style={{ color: "#fff", fontSize: 14 }}>{initError}</Text>
+        <Text style={{ color: "#888", fontSize: 12, marginTop: 16 }}>
+          CONVEX_URL: {process.env.EXPO_PUBLIC_CONVEX_URL ?? "NOT SET"}{"\n"}
+          RC_KEY: {process.env.EXPO_PUBLIC_REVENUECAT_API_KEY ? "SET" : "NOT SET"}
+        </Text>
+      </View>
+    );
+  }
+
   if (!fontsLoaded || !i18nReady) {
     return null;
   }
 
   return (
-    <ThemeProvider>
-      <ConvexProvider client={convex}>
-        <SubscriptionManager />
-        <RootContent />
-      </ConvexProvider>
-    </ThemeProvider>
+    <ErrorBoundary>
+      <ThemeProvider>
+        <ConvexProvider client={convex}>
+          <SubscriptionManager />
+          <RootContent />
+        </ConvexProvider>
+      </ThemeProvider>
+    </ErrorBoundary>
   );
 }
