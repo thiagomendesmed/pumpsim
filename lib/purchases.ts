@@ -14,6 +14,10 @@ let isConfigured = false;
  */
 export async function initPurchases(appUserID?: string): Promise<void> {
   if (isConfigured) return;
+  if (!API_KEY) {
+    console.warn("RevenueCat API key not set — skipping init");
+    return;
+  }
   try {
     if (__DEV__) {
       Purchases.setLogLevel(LOG_LEVEL.DEBUG);
