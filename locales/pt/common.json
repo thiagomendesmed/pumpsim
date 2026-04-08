@@ -46,6 +46,7 @@
   "patients.lockedDescription": "Gerencie pacientes por leito e controle multiplas bombas de infusao por paciente.",
   "patients.noName": "Sem nome",
   "patients.tapToViewPumps": "Toque para ver bombas",
+  "patients.manageSubscription": "Assinatura",
 
   "patient.back": "\u2190 Voltar",
   "patient.delete": "Excluir",

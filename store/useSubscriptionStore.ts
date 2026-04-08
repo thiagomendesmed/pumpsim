@@ -1,9 +1,11 @@
 import { create } from "zustand";
 import {
   checkIsPremium,
-  purchaseMonthly,
-  purchaseAnnual,
+  purchaseMonthly as purchaseMonthlyLib,
+  purchaseAnnual as purchaseAnnualLib,
   restorePurchases as restorePurchasesLib,
+  isPremiumFromInfo,
+  addCustomerInfoListener,
 } from "@/lib/purchases";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -12,14 +14,22 @@ const SUBSCRIPTION_CACHE_KEY = "bombasim_subscription_cache";
 interface SubscriptionState {
   isPremium: boolean;
   isLoading: boolean;
-  __devOverride: boolean | null; // DEV ONLY: null = use real status, true/false = override
+  __devOverride: boolean | null;
 
   checkStatus: () => Promise<void>;
   purchaseMonthly: () => Promise<void>;
   purchaseAnnual: () => Promise<void>;
   restorePurchases: () => Promise<void>;
   loadCachedStatus: () => Promise<void>;
-  __toggleDevOverride: () => void; // DEV ONLY
+  startListening: () => void;
+  __toggleDevOverride: () => void;
+}
+
+async function cacheStatus(isPremium: boolean) {
+  await AsyncStorage.setItem(
+    SUBSCRIPTION_CACHE_KEY,
+    JSON.stringify({ isPremium, cachedAt: Date.now() })
+  );
 }
 
 export const useSubscriptionStore = create<SubscriptionState>((set, get) => ({
@@ -31,56 +41,43 @@ export const useSubscriptionStore = create<SubscriptionState>((set, get) => ({
     try {
       const isPremium = await checkIsPremium();
       set({ isPremium, isLoading: false });
-
-      // Cache status for offline use
-      await AsyncStorage.setItem(
-        SUBSCRIPTION_CACHE_KEY,
-        JSON.stringify({ isPremium, cachedAt: Date.now() })
-      );
+      await cacheStatus(isPremium);
     } catch {
       set({ isLoading: false });
     }
   },
 
   purchaseMonthly: async () => {
-    const customerInfo = await purchaseMonthly();
-    const isPremium =
-      customerInfo.entitlements.active["premium"] !== undefined;
+    const customerInfo = await purchaseMonthlyLib();
+    const isPremium = isPremiumFromInfo(customerInfo);
     set({ isPremium });
-
-    await AsyncStorage.setItem(
-      SUBSCRIPTION_CACHE_KEY,
-      JSON.stringify({ isPremium, cachedAt: Date.now() })
-    );
+    await cacheStatus(isPremium);
   },
 
   purchaseAnnual: async () => {
-    const customerInfo = await purchaseAnnual();
-    const isPremium =
-      customerInfo.entitlements.active["premium"] !== undefined;
+    const customerInfo = await purchaseAnnualLib();
+    const isPremium = isPremiumFromInfo(customerInfo);
     set({ isPremium });
-
-    await AsyncStorage.setItem(
-      SUBSCRIPTION_CACHE_KEY,
-      JSON.stringify({ isPremium, cachedAt: Date.now() })
-    );
+    await cacheStatus(isPremium);
   },
 
   restorePurchases: async () => {
     const customerInfo = await restorePurchasesLib();
-    const isPremium =
-      customerInfo.entitlements.active["premium"] !== undefined;
+    const isPremium = isPremiumFromInfo(customerInfo);
     set({ isPremium });
+    await cacheStatus(isPremium);
+  },
 
-    await AsyncStorage.setItem(
-      SUBSCRIPTION_CACHE_KEY,
-      JSON.stringify({ isPremium, cachedAt: Date.now() })
-    );
+  startListening: () => {
+    addCustomerInfoListener((info) => {
+      const isPremium = isPremiumFromInfo(info);
+      set({ isPremium });
+      cacheStatus(isPremium);
+    });
   },
 
   __toggleDevOverride: () => {
     const current = get().__devOverride;
-    // null -> true (premium), true -> false (free), false -> null (real)
     const next = current === null ? true : current === true ? false : null;
     set({ __devOverride: next });
   },

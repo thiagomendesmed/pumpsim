@@ -12,6 +12,7 @@ import { PatientCard } from "@/components/patients/PatientCard";
 import { AddPatientModal } from "@/components/patients/AddPatientModal";
 import { useState } from "react";
 import { useAuthStore } from "@/store/useAuthStore";
+import RevenueCatUI from "react-native-purchases-ui";
 
 export default function PatientsScreen() {
   const { t } = useTranslation();
@@ -20,6 +21,13 @@ export default function PatientsScreen() {
   const { isPremium, paywallVisible, showPaywall, hidePaywall } = usePremium();
   const { isAuthenticated } = useAuthStore();
   const [addModalVisible, setAddModalVisible] = useState(false);
+  const openCustomerCenter = async () => {
+    try {
+      await RevenueCatUI.presentCustomerCenter();
+    } catch {
+      // User dismissed or not available
+    }
+  };
 
   const patients = useQuery(api.patients.listPatients, isAuthenticated ? {} : "skip");
 
@@ -43,9 +51,17 @@ export default function PatientsScreen() {
     <SafeAreaView style={[styles.container, { backgroundColor: colors.background }]}>
       <View style={styles.header}>
         <Text style={[styles.title, { color: colors.accent }]}>{t("patients.title")}</Text>
-        <Pressable style={[styles.addButton, { backgroundColor: colors.accent }]} onPress={() => setAddModalVisible(true)}>
-          <Text style={[styles.addButtonText, { color: colors.background }]}>{t("patients.newBed")}</Text>
-        </Pressable>
+        <View style={styles.headerButtons}>
+          <Pressable
+            style={[styles.manageButton, { borderColor: colors.accent }]}
+            onPress={openCustomerCenter}
+          >
+            <Text style={[styles.manageButtonText, { color: colors.accent }]}>{t("patients.manageSubscription")}</Text>
+          </Pressable>
+          <Pressable style={[styles.addButton, { backgroundColor: colors.accent }]} onPress={() => setAddModalVisible(true)}>
+            <Text style={[styles.addButtonText, { color: colors.background }]}>{t("patients.newBed")}</Text>
+          </Pressable>
+        </View>
       </View>
 
       <FlatList
@@ -63,6 +79,7 @@ export default function PatientsScreen() {
       />
 
       <AddPatientModal visible={addModalVisible} onClose={() => setAddModalVisible(false)} />
+
     </SafeAreaView>
   );
 }
@@ -70,9 +87,12 @@ export default function PatientsScreen() {
 const styles = StyleSheet.create({
   container: { flex: 1 },
   header: { flexDirection: "row", justifyContent: "space-between", alignItems: "center", paddingHorizontal: 20, paddingTop: 16, paddingBottom: 12 },
+  headerButtons: { flexDirection: "row", gap: 8 },
   title: { fontFamily: FONTS.title, fontSize: 12, letterSpacing: 1 },
   addButton: { borderRadius: 8, paddingHorizontal: 12, paddingVertical: 8 },
   addButtonText: { fontFamily: FONTS.labelBold, fontSize: 11 },
+  manageButton: { borderRadius: 8, borderWidth: 1, paddingHorizontal: 10, paddingVertical: 8 },
+  manageButtonText: { fontFamily: FONTS.label, fontSize: 10 },
   list: { paddingHorizontal: 20, paddingBottom: 20 },
   emptyContainer: { alignItems: "center", marginTop: 80 },
   emptyText: { fontFamily: FONTS.label, fontSize: 13, textAlign: "center", lineHeight: 20 },

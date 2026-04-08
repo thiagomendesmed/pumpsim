@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import { signInWithApple, signOut as authSignOut } from "@/lib/auth";
+import { loginUser, logoutUser } from "@/lib/purchases";
 import { convex } from "@/lib/convex";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -29,7 +30,15 @@ export const useAuthStore = create<AuthState>((set) => ({
     try {
       const result = await signInWithApple();
 
+      // Set auth on Convex
       convex.setAuth(async () => result.token);
+
+      // Identify user in RevenueCat (links purchases to account)
+      try {
+        await loginUser(result.email || result.token);
+      } catch {
+        // Non-blocking — purchases still work anonymously
+      }
 
       await AsyncStorage.setItem(AUTH_TOKEN_KEY, result.token);
 
@@ -48,6 +57,14 @@ export const useAuthStore = create<AuthState>((set) => ({
 
   signOut: async () => {
     await authSignOut();
+
+    // Reset RevenueCat to anonymous
+    try {
+      await logoutUser();
+    } catch {
+      // Non-blocking
+    }
+
     await AsyncStorage.removeItem(AUTH_TOKEN_KEY);
     set({
       isAuthenticated: false,

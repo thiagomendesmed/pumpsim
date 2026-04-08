@@ -46,6 +46,7 @@
   "patients.lockedDescription": "Gestiona pacientes por cama y controla multiples bombas de infusion por paciente.",
   "patients.noName": "Sin nombre",
   "patients.tapToViewPumps": "Toca para ver bombas",
+  "patients.manageSubscription": "Suscripcion",
 
   "patient.back": "\u2190 Volver",
   "patient.delete": "Eliminar",

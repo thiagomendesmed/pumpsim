@@ -13,6 +13,8 @@ import {
 import * as SplashScreen from "expo-splash-screen";
 import { convex } from "@/lib/convex";
 import { initI18n } from "@/lib/i18n";
+import { initPurchases } from "@/lib/purchases";
+import { useSubscriptionStore } from "@/store/useSubscriptionStore";
 import { ThemeProvider, useTheme } from "@/hooks/useThemeContext";
 
 SplashScreen.preventAutoHideAsync();
@@ -32,6 +34,20 @@ function RootContent() {
   );
 }
 
+function SubscriptionManager() {
+  const { checkStatus, startListening, loadCachedStatus } = useSubscriptionStore();
+
+  useEffect(() => {
+    // Load cached status first for instant UI, then check real status
+    loadCachedStatus().then(() => checkStatus());
+
+    // Listen for real-time subscription changes
+    startListening();
+  }, []);
+
+  return null;
+}
+
 export default function RootLayout() {
   const [fontsLoaded] = useFonts({
     PressStart2P_400Regular,
@@ -43,6 +59,11 @@ export default function RootLayout() {
 
   useEffect(() => {
     initI18n().then(() => setI18nReady(true));
+  }, []);
+
+  useEffect(() => {
+    // Initialize RevenueCat as early as possible
+    initPurchases();
   }, []);
 
   useEffect(() => {
@@ -58,6 +79,7 @@ export default function RootLayout() {
   return (
     <ThemeProvider>
       <ConvexProvider client={convex}>
+        <SubscriptionManager />
         <RootContent />
       </ConvexProvider>
     </ThemeProvider>

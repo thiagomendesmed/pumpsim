@@ -46,6 +46,7 @@
   "patients.lockedDescription": "Manage patients by bed and control multiple infusion pumps per patient.",
   "patients.noName": "No name",
   "patients.tapToViewPumps": "Tap to view pumps",
+  "patients.manageSubscription": "Subscription",
 
   "patient.back": "\u2190 Back",
   "patient.delete": "Delete",

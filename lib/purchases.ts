@@ -1,71 +1,119 @@
-import { Platform } from "react-native";
+import Purchases, {
+  LOG_LEVEL,
+  CustomerInfo,
+  PurchasesOffering,
+} from "react-native-purchases";
 
-// Lazy import to avoid crashing in Expo Go
-function getPurchases() {
-  return require("react-native-purchases").default as typeof import("react-native-purchases").default;
-}
+const API_KEY = "test_aUZWfeBUOYJztYpamtrKCmzrkAv";
+const ENTITLEMENT_ID = "pumpsim Premium";
 
-// TODO: replace with your actual RevenueCat API keys
-const API_KEYS = {
-  ios: "appl_XXXXXXXXXXXX",
-  android: "goog_XXXXXXXXXXXX",
-};
+let isConfigured = false;
 
-const PREMIUM_ENTITLEMENT = "premium";
-
-export async function initPurchases(appUserID?: string) {
+/**
+ * Initialize RevenueCat SDK. Call once at app startup.
+ */
+export async function initPurchases(appUserID?: string): Promise<void> {
+  if (isConfigured) return;
   try {
-    const Purchases = getPurchases();
-    const apiKey = Platform.OS === "ios" ? API_KEYS.ios : API_KEYS.android;
-    Purchases.configure({ apiKey, appUserID });
-  } catch {
-    // Native module not available (Expo Go)
-    console.warn("RevenueCat not available — native build required");
+    if (__DEV__) {
+      Purchases.setLogLevel(LOG_LEVEL.DEBUG);
+    }
+
+    Purchases.configure({ apiKey: API_KEY, appUserID });
+    isConfigured = true;
+  } catch (error) {
+    console.warn("RevenueCat init failed:", error);
   }
 }
 
-export async function getOfferings() {
-  const Purchases = getPurchases();
+/**
+ * Identify user after login (links anonymous purchases to account).
+ */
+export async function loginUser(appUserID: string): Promise<CustomerInfo> {
+  const { customerInfo } = await Purchases.logIn(appUserID);
+  return customerInfo;
+}
+
+/**
+ * Logout user (resets to anonymous).
+ */
+export async function logoutUser(): Promise<void> {
+  await Purchases.logOut();
+}
+
+/**
+ * Get current offerings (products available for purchase).
+ */
+export async function getOfferings(): Promise<PurchasesOffering | null> {
   const offerings = await Purchases.getOfferings();
   return offerings.current ?? null;
 }
 
-export async function purchaseMonthly() {
-  const Purchases = getPurchases();
+/**
+ * Purchase the monthly package from the current offering.
+ */
+export async function purchaseMonthly(): Promise<CustomerInfo> {
   const offerings = await Purchases.getOfferings();
   const monthly = offerings.current?.monthly;
-  if (!monthly) throw new Error("No monthly offering found");
+  if (!monthly) throw new Error("No monthly package available");
 
   const { customerInfo } = await Purchases.purchasePackage(monthly);
   return customerInfo;
 }
 
-export async function purchaseAnnual() {
-  const Purchases = getPurchases();
+/**
+ * Purchase the annual package from the current offering.
+ */
+export async function purchaseAnnual(): Promise<CustomerInfo> {
   const offerings = await Purchases.getOfferings();
   const annual = offerings.current?.annual;
-  if (!annual) throw new Error("No annual offering found");
+  if (!annual) throw new Error("No annual package available");
 
   const { customerInfo } = await Purchases.purchasePackage(annual);
   return customerInfo;
 }
 
-export async function restorePurchases() {
-  const Purchases = getPurchases();
+/**
+ * Restore previous purchases.
+ */
+export async function restorePurchases(): Promise<CustomerInfo> {
   return await Purchases.restorePurchases();
 }
 
+/**
+ * Check if user has active premium entitlement.
+ */
+export function isPremiumFromInfo(customerInfo: CustomerInfo): boolean {
+  return customerInfo.entitlements.active[ENTITLEMENT_ID] !== undefined;
+}
+
+/**
+ * Get customer info and check premium status.
+ */
 export async function checkIsPremium(): Promise<boolean> {
   try {
-    const Purchases = getPurchases();
     const customerInfo = await Purchases.getCustomerInfo();
-    return customerInfo.entitlements.active[PREMIUM_ENTITLEMENT] !== undefined;
+    return isPremiumFromInfo(customerInfo);
   } catch {
     return false;
   }
 }
 
-export async function getCustomerInfo() {
-  const Purchases = getPurchases();
+/**
+ * Get full customer info.
+ */
+export async function getCustomerInfo(): Promise<CustomerInfo> {
   return await Purchases.getCustomerInfo();
 }
+
+/**
+ * Add a listener for customer info changes (subscription updates).
+ * This is a persistent listener — call once at app startup.
+ */
+export function addCustomerInfoListener(
+  listener: (info: CustomerInfo) => void
+): void {
+  Purchases.addCustomerInfoUpdateListener(listener);
+}
+
+export { ENTITLEMENT_ID };
