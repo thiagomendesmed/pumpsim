@@ -15,7 +15,7 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.bombasim.app",
+      "bundleIdentifier": "com.thiagomendesmed.pumpsim",
       "buildNumber": "1",
       "usesAppleSignIn": true,
       "infoPlist": {
