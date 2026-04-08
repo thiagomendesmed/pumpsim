@@ -4,7 +4,7 @@ import Purchases, {
   PurchasesOffering,
 } from "react-native-purchases";
 
-const API_KEY = "test_aUZWfeBUOYJztYpamtrKCmzrkAv";
+const API_KEY = process.env.EXPO_PUBLIC_REVENUECAT_API_KEY ?? "";
 const ENTITLEMENT_ID = "pumpsim Premium";
 
 let isConfigured = false;
