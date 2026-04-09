@@ -15,15 +15,10 @@
       "distribution": "internal"
     },
     "production": {
-      "autoIncrement": true
-    }
-  },
-  "submit": {
-    "production": {
-      "ios": {
-        "appleId": "",
-        "ascAppId": "",
-        "appleTeamId": ""
+      "autoIncrement": true,
+      "env": {
+        "EXPO_PUBLIC_CONVEX_URL": "https://modest-deer-674.convex.cloud",
+        "EXPO_PUBLIC_REVENUECAT_API_KEY": "test_aUZWfeBUOYJztYpamtrKCmzrkAv"
       }
     }
   }
