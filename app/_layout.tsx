@@ -4,7 +4,9 @@ import { View, Text } from "react-native";
 import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-import { ConvexProvider } from "convex/react";
+import { ClerkProvider, useAuth } from "@clerk/expo";
+import { tokenCache } from "@clerk/expo/token-cache";
+import { ConvexProviderWithClerk } from "convex/react-clerk";
 import { useFonts, PressStart2P_400Regular } from "@expo-google-fonts/press-start-2p";
 import { VT323_400Regular } from "@expo-google-fonts/vt323";
 import {
@@ -16,10 +18,13 @@ import { convex } from "@/lib/convex";
 import { initI18n } from "@/lib/i18n";
 import { initPurchases } from "@/lib/purchases";
 import { useSubscriptionStore } from "@/store/useSubscriptionStore";
+import { useClerkUserSync } from "@/hooks/useClerkUserSync";
 import { ThemeProvider, useTheme } from "@/hooks/useThemeContext";
 import { ErrorBoundary } from "@/components/ui/ErrorBoundary";
 
 SplashScreen.preventAutoHideAsync();
+
+const publishableKey = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY;
 
 function RootContent() {
   const { colors, isDark } = useTheme();
@@ -38,6 +43,7 @@ function RootContent() {
 
 function SubscriptionManager() {
   const { checkStatus, startListening, loadCachedStatus } = useSubscriptionStore();
+  useClerkUserSync();
 
   useEffect(() => {
     loadCachedStatus().then(() => checkStatus());
@@ -75,7 +81,6 @@ export default function RootLayout() {
     }
   }, [fontsLoaded, i18nReady]);
 
-  // Show init error on screen for debugging
   if (initError) {
     return (
       <View style={{ flex: 1, backgroundColor: "#0f0f1e", justifyContent: "center", padding: 32 }}>
@@ -83,7 +88,18 @@ export default function RootLayout() {
         <Text style={{ color: "#fff", fontSize: 14 }}>{initError}</Text>
         <Text style={{ color: "#888", fontSize: 12, marginTop: 16 }}>
           CONVEX_URL: {process.env.EXPO_PUBLIC_CONVEX_URL ?? "NOT SET"}{"\n"}
-          RC_KEY: {process.env.EXPO_PUBLIC_REVENUECAT_API_KEY ? "SET" : "NOT SET"}
+          RC_KEY: {process.env.EXPO_PUBLIC_REVENUECAT_API_KEY ? "SET" : "NOT SET"}{"\n"}
+          CLERK_KEY: {publishableKey ? "SET" : "NOT SET"}
+        </Text>
+      </View>
+    );
+  }
+
+  if (!publishableKey) {
+    return (
+      <View style={{ flex: 1, backgroundColor: "#0f0f1e", justifyContent: "center", padding: 32 }}>
+        <Text style={{ color: "#ef4444", fontSize: 20, marginBottom: 12 }}>
+          Missing EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY
         </Text>
       </View>
     );
@@ -95,12 +111,21 @@ export default function RootLayout() {
 
   return (
     <ErrorBoundary>
-      <ThemeProvider>
-        <ConvexProvider client={convex}>
-          <SubscriptionManager />
-          <RootContent />
-        </ConvexProvider>
-      </ThemeProvider>
+      <ClerkProvider
+        publishableKey={publishableKey}
+        tokenCache={tokenCache}
+        signInUrl="/(auth)/login"
+        signUpUrl="/(auth)/login"
+        signInFallbackRedirectUrl="/(tabs)"
+        signUpFallbackRedirectUrl="/(tabs)"
+      >
+        <ConvexProviderWithClerk client={convex} useAuth={useAuth}>
+          <ThemeProvider>
+            <SubscriptionManager />
+            <RootContent />
+          </ThemeProvider>
+        </ConvexProviderWithClerk>
+      </ClerkProvider>
     </ErrorBoundary>
   );
 }

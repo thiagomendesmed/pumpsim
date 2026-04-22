@@ -6,18 +6,23 @@ export default defineSchema({
     tokenIdentifier: v.string(),
     email: v.string(),
     name: v.optional(v.string()),
-    authProvider: v.literal("apple"),
     subscriptionStatus: v.union(
       v.literal("free"),
       v.literal("premium"),
       v.literal("expired")
     ),
     subscriptionExpiresAt: v.optional(v.number()),
+    subscriptionProvider: v.optional(
+      v.union(v.literal("app_store"), v.literal("stripe"))
+    ),
     revenuecatCustomerId: v.optional(v.string()),
+    stripeCustomerId: v.optional(v.string()),
+    stripeSubscriptionId: v.optional(v.string()),
     createdAt: v.number(),
   })
     .index("by_token", ["tokenIdentifier"])
-    .index("by_revenuecat", ["revenuecatCustomerId"]),
+    .index("by_revenuecat", ["revenuecatCustomerId"])
+    .index("by_stripe_customer", ["stripeCustomerId"]),
 
   patients: defineTable({
     userId: v.id("users"),

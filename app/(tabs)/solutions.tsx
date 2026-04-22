@@ -15,7 +15,7 @@ import { useQuery, useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { useTheme } from "@/hooks/useThemeContext";
 import { FONTS } from "@/constants/theme";
-import { useAuthStore } from "@/store/useAuthStore";
+import { useAuth } from "@clerk/expo";
 import { DRUGS } from "@/constants/drugs";
 import { Drug, DrugCategory } from "@/types";
 
@@ -38,7 +38,8 @@ const CATEGORY_LABELS: Record<DrugCategory, string> = {
 export default function SolutionsScreen() {
   const { t } = useTranslation();
   const { colors } = useTheme();
-  const { isAuthenticated } = useAuthStore();
+  const { isSignedIn } = useAuth();
+  const isAuthenticated = !!isSignedIn;
   const [hospitalModalVisible, setHospitalModalVisible] = useState(false);
   const [newHospitalName, setNewHospitalName] = useState("");
 

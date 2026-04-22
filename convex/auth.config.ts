@@ -1,8 +1,8 @@
 export default {
   providers: [
     {
-      domain: "https://appleid.apple.com",
-      applicationID: "com.thiagomendesmed.pumpsim",
+      domain: "https://known-hare-27.clerk.accounts.dev",
+      applicationID: "convex",
     },
   ],
 };

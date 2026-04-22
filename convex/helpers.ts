@@ -19,8 +19,19 @@ export async function requireAuth(ctx: any) {
 
 export async function requirePremium(ctx: any) {
   const user = await requireAuth(ctx);
-  if (user.subscriptionStatus !== "premium") {
+  if (!hasActiveSubscription(user)) {
     throw new Error("Premium subscription required");
   }
   return user;
+}
+
+export function hasActiveSubscription(user: {
+  subscriptionStatus: "free" | "premium" | "expired";
+  subscriptionExpiresAt?: number;
+}): boolean {
+  if (user.subscriptionStatus !== "premium") return false;
+  if (user.subscriptionExpiresAt && user.subscriptionExpiresAt < Date.now()) {
+    return false;
+  }
+  return true;
 }

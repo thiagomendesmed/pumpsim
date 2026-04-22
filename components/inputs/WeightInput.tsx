@@ -1,11 +1,15 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useState, useEffect } from "react";
 import { View, Pressable, TextInput, StyleSheet } from "react-native";
+import Slider from "@react-native-community/slider";
 import * as Haptics from "expo-haptics";
 import { useTranslation } from "react-i18next";
 import { usePumpStore } from "@/store/usePumpStore";
 import { useTheme } from "@/hooks/useThemeContext";
 import { FONTS } from "@/constants/theme";
 import PixelText from "@/components/ui/PixelText";
+
+const MIN_WEIGHT = 0;
+const MAX_WEIGHT = 200;
 
 export default function WeightInput() {
   const { t } = useTranslation();
@@ -14,21 +18,37 @@ export default function WeightInput() {
   const setWeight = usePumpStore((s) => s.setWeight);
   const [textValue, setTextValue] = useState(String(weight));
 
+  useEffect(() => {
+    setTextValue(String(weight));
+  }, [weight]);
+
+  const clamp = (v: number) => Math.max(MIN_WEIGHT, Math.min(MAX_WEIGHT, v));
+
   const handleStep = useCallback(
     (delta: number) => {
       Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-      const newVal = weight + delta;
+      const newVal = clamp(weight + delta);
       setWeight(newVal);
-      setTextValue(String(Math.max(0, Math.min(300, newVal))));
+      setTextValue(String(newVal));
     },
     [weight, setWeight]
+  );
+
+  const handleSlider = useCallback(
+    (val: number) => {
+      const rounded = Math.round(val);
+      setWeight(rounded);
+      setTextValue(String(rounded));
+    },
+    [setWeight]
   );
 
   const handleTextSubmit = useCallback(() => {
     const parsed = parseFloat(textValue);
     if (!isNaN(parsed)) {
-      setWeight(parsed);
-      setTextValue(String(Math.max(0, Math.min(300, parsed))));
+      const clamped = clamp(parsed);
+      setWeight(clamped);
+      setTextValue(String(clamped));
     } else {
       setTextValue(String(weight));
     }
@@ -62,6 +82,17 @@ export default function WeightInput() {
           <PixelText variant="lcd" style={[styles.stepText, { color: colors.inputText }]}>+</PixelText>
         </Pressable>
       </View>
+      <Slider
+        style={styles.slider}
+        minimumValue={MIN_WEIGHT}
+        maximumValue={MAX_WEIGHT}
+        step={1}
+        value={Math.min(Math.max(weight, MIN_WEIGHT), MAX_WEIGHT)}
+        onValueChange={handleSlider}
+        minimumTrackTintColor={colors.accent}
+        maximumTrackTintColor={colors.inputBorder}
+        thumbTintColor={colors.accent}
+      />
     </View>
   );
 }
@@ -79,4 +110,5 @@ const styles = StyleSheet.create({
     flex: 1, height: 40, borderRadius: 8, borderWidth: 1,
     fontFamily: FONTS.lcd, fontSize: 22, textAlign: "center", paddingHorizontal: 8,
   },
+  slider: { marginTop: 8, height: 30 },
 });

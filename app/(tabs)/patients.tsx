@@ -11,23 +11,17 @@ import { PaywallModal } from "@/components/premium/PaywallModal";
 import { PatientCard } from "@/components/patients/PatientCard";
 import { AddPatientModal } from "@/components/patients/AddPatientModal";
 import { useState } from "react";
-import { useAuthStore } from "@/store/useAuthStore";
-import RevenueCatUI from "react-native-purchases-ui";
+import { useAuth } from "@clerk/expo";
+import { openCustomerCenter } from "@/lib/customerCenter";
 
 export default function PatientsScreen() {
   const { t } = useTranslation();
   const { colors } = useTheme();
   const router = useRouter();
   const { isPremium, paywallVisible, showPaywall, hidePaywall } = usePremium();
-  const { isAuthenticated } = useAuthStore();
+  const { isSignedIn } = useAuth();
+  const isAuthenticated = !!isSignedIn;
   const [addModalVisible, setAddModalVisible] = useState(false);
-  const openCustomerCenter = async () => {
-    try {
-      await RevenueCatUI.presentCustomerCenter();
-    } catch {
-      // User dismissed or not available
-    }
-  };
 
   const patients = useQuery(api.patients.listPatients, isAuthenticated ? {} : "skip");
 

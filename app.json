@@ -30,7 +30,9 @@
       "expo-router",
       "expo-font",
       "expo-apple-authentication",
-      "expo-localization"
+      "expo-localization",
+      "expo-secure-store",
+      "expo-web-browser"
     ],
     "extra": {
       "router": {},

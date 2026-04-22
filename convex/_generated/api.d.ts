@@ -14,6 +14,7 @@ import type * as hospitals from "../hospitals.js";
 import type * as http from "../http.js";
 import type * as patients from "../patients.js";
 import type * as pumps from "../pumps.js";
+import type * as stripe from "../stripe.js";
 import type * as users from "../users.js";
 
 import type {
@@ -29,6 +30,7 @@ declare const fullApi: ApiFromModules<{
   http: typeof http;
   patients: typeof patients;
   pumps: typeof pumps;
+  stripe: typeof stripe;
   users: typeof users;
 }>;
 

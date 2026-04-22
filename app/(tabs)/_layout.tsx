@@ -1,16 +1,23 @@
-import { Tabs } from "expo-router";
+import { Tabs, Redirect } from "expo-router";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useTranslation } from "react-i18next";
+import { useAuth } from "@clerk/expo";
 import { useTheme } from "@/hooks/useThemeContext";
 import { FONTS } from "@/constants/theme";
+import { useIsWide } from "@/hooks/useResponsive";
 
 export default function TabLayout() {
   const { t, i18n } = useTranslation();
   const { colors } = useTheme();
+  const isWide = useIsWide();
+  const { isLoaded, isSignedIn } = useAuth();
+
+  if (!isLoaded) return null;
+  if (!isSignedIn) return <Redirect href="/(auth)/login" />;
 
   return (
     <Tabs
-      key={`${i18n.language}-${colors.background}`}
+      key={`${i18n.language}-${colors.background}-${isWide ? "wide" : "narrow"}`}
       screenOptions={{
         headerShown: false,
         tabBarStyle: {
@@ -45,6 +52,7 @@ export default function TabLayout() {
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons name="table" size={size} color={color} />
           ),
+          href: isWide ? null : "/reference",
         }}
       />
       <Tabs.Screen
